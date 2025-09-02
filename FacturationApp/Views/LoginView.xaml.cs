@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace FacturationApp.View
+namespace FacturationApp.Views
 {
     /// <summary>
     /// Logique d'interaction pour LoginView.xaml
