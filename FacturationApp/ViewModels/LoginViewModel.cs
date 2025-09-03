@@ -1,4 +1,5 @@
-﻿using FacturationApp.ViewModels;
+﻿using FacturationApp.Models;
+using FacturationApp.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace FacturationApp.ViewModels
         private string _errorMessage;
         private bool _isViewVisible = true;
 
-
+        private IUserRepository userRepository;
         //Properties
         public string Username
         {
@@ -88,7 +89,7 @@ namespace FacturationApp.ViewModels
         //Constructor
         public LoginViewModel()
         {
-        
+            userRepository = new UserRepository();
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
             RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPassCommand("", ""));
         }
@@ -107,6 +108,19 @@ namespace FacturationApp.ViewModels
         private void ExecuteLoginCommand(object obj)
         {
             
+            var isValidUser = userRepository.AuthenticateUser(new NetworkCredential(Username, Password));
+
+            if (isValidUser)
+            {
+                Console.WriteLine("✅ User authenticated.");
+                Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Username), null);
+                IsViewVisible = false;
+            }
+            else
+            {
+                ErrorMessage = "* Invalid username or password";
+            }
+
         }
 
         private void ExecuteRecoverPassCommand(string username, string email)

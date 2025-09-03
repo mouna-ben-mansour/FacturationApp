@@ -22,7 +22,7 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
     </Window.Resources>
     <Window.Visibility>
-        <Binding Path="IsVisible" Mode="TwoWay" Converter="{StaticResource BooleanToVisibility}"/>
+        <Binding Path="IsViewVisible" Mode="TwoWay" Converter="{StaticResource BooleanToVisibility}"/>
     </Window.Visibility>
     
     <Border CornerRadius="12">
